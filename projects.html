@@ -4,112 +4,274 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects · Pranjal Samant</title>
+  <meta name="description" content="Projects by Pranjal Samant — robotics, embedded systems, IoT, and AI." />
 
   <style>
-    body {
-      font-family: system-ui, Arial, sans-serif;
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --subtle: rgba(255,255,255,.55);
+      --link: #7dd3fc;
+      --pill: rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    body{
       margin: 0;
-      padding: 48px 20px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.6;
-      background: #ffffff;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(56,189,248,.25), transparent 55%),
+        radial-gradient(1000px 700px at 85% 25%, rgba(167,139,250,.22), transparent 55%),
+        radial-gradient(900px 700px at 50% 85%, rgba(34,197,94,.15), transparent 55%),
+        var(--bg);
+      padding: 56px 20px;
     }
 
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    .topbar{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
-    h1 {
-      margin-bottom: 8px;
+    .crumbs{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    h2 {
-      margin-top: 40px;
-      margin-bottom: 12px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 6px;
-    }
-
-    a {
-      color: #2563eb;
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
       text-decoration: none;
     }
+    .btn:hover{ background: rgba(255,255,255,.08); text-decoration: none; }
 
-    a:hover {
-      text-decoration: underline;
+    header{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      margin-bottom: 18px;
     }
 
-    .project {
-      padding: 16px;
-      border: 1px solid #e6e6e6;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      background: #fafafa;
-    }
-
-    .project h3 {
+    h1{
+      font-size: clamp(26px, 3vw, 38px);
       margin: 0 0 6px;
+      letter-spacing: -0.02em;
     }
 
-    .project p {
-      margin: 0;
-      color: #444;
+    p{ margin: 0 0 10px; color: var(--muted); }
+    .muted{ color: var(--subtle); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .project{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .thumb{
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--subtle);
+      font-size: 13px;
+    }
+
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .project h2{
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .pills{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .pill{
+      display:inline-flex;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      background: var(--pill);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .links{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .smallnote{
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+    }
+
+    footer{
+      margin-top: 24px;
+      color: var(--subtle);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px){
+      .project{ grid-template-columns: 1fr; }
+      .thumb{ aspect-ratio: 16/9; }
+      .topbar{ flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <a href="index.html">← Back home</a>
-    <h1>Projects</h1>
-
-    <!-- ================= ROBOT PROGRAMMING ================= -->
-    <h2>Robot Programming</h2>
-
-    <div class="project">
-      <h3>AR with Robot Programming</h3>
-      <p>Designed a android application for RealWear Headset to control a Robotic Arm using voice commands.</p>
+    <div class="topbar">
+      <div class="crumbs">
+        <a href="index.html">Home</a>
+        <span class="muted">/</span>
+        <span>Projects</span>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="https://github.com/pranjalsamant1" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a class="btn" href="https://linkedin.com/in/pranjalsamant" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </div>
     </div>
 
-    <!-- ================= COMPUTER VISION ================= -->
-    <h2>2D Image & Computer Vision</h2>
+    <header>
+      <h1>Projects</h1>
+      <p>
+        A curated set of hands-on projects demonstrating my work across robotics, embedded systems, IoT, and AI (ML/OpenCV).
+        Each project links to a GitHub repository with documentation, results, and source code where available.
+      </p>
+      <p class="muted" style="margin:0;">
+        Tip: If you’re reviewing quickly, start with the first project — it shows full system integration.
+      </p>
+    </header>
 
-    <div class="project">
-      <h3>License Plate Detection and Recognition</h3>
-      <p>Built a computer vision pipeline using OpenCV and EasyOCR to detect license plates and extract text from images.</p>
+    <section class="grid">
+
+      <!-- Project 1 -->
+      <article class="project">
+        <!-- THUMBNAIL OPTION A (recommended): put an image in your GitHub Pages repo -->
+        <div class="thumb">
+          <!-- Replace the src below with your actual thumbnail path in the Pages repo -->
+          <img src="assets/images/2d-image-printer-robot.png" alt="2D Image Printer Robot thumbnail">
+        </div>
+
+        <!-- THUMBNAIL OPTION B (alternative): link to a raw image inside the project repo
+        <div class="thumb">
+          <img src="https://raw.githubusercontent.com/pranjalsamant1/2D-Image-Printer-Robot/main/images/YOUR_IMAGE_NAME.png" alt="2D Image Printer Robot thumbnail">
+        </div>
+        -->
+
+        <div>
+          <h2>2D Image Printer Robot</h2>
+          <p>
+            A robotic “dot-matrix style” drawing system that converts a digital image into a physical drawing on a cylindrical surface.
+            The pipeline uses MATLAB for image processing (binary/edge-based dot representation) and Arduino-based motor control
+            (stepper + servos) to coordinate cylinder rotation, pen translation, and pen contact.
+          </p>
+
+          <div class="pills" aria-label="Skills and tools used">
+            <span class="pill">Robotics</span>
+            <span class="pill">Embedded Systems</span>
+            <span class="pill">Arduino</span>
+            <span class="pill">MATLAB</span>
+            <span class="pill">Image Processing</span>
+            <span class="pill">Servo/Stepper Control</span>
+          </div>
+
+          <div class="links">
+            <a class="btn" href="https://github.com/pranjalsamant1/2D-Image-Printer-Robot" target="_blank" rel="noreferrer">View Repository →</a>
+            <!-- Optional: add a demo link if you uploaded to YouTube/Drive -->
+            <!-- <a class="btn" href="https://youtube.com/your-link" target="_blank" rel="noreferrer">Watch Demo ↗</a> -->
+          </div>
+        </div>
+      </article>
+
+      <!-- Placeholder cards for upcoming projects (we’ll replace these as you add Project 2, 3, etc.) -->
+      <article class="project">
+        <div class="thumb" aria-hidden="true">Thumbnail</div>
+        <div>
+          <h2>Next Project (Coming Soon)</h2>
+          <p>Placeholder for your next project. We’ll replace this with Project 2 once the repository is ready.</p>
+          <div class="pills">
+            <span class="pill">Embedded</span>
+            <span class="pill">IoT</span>
+            <span class="pill">AI / OpenCV</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="#" onclick="return false;">Repository →</a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <div class="smallnote">
+      More projects will be added over time as I continue documenting and publishing my work.
     </div>
 
-    <!-- ================= EMBEDDED & IOT ================= -->
-    <h2>Embedded Systems & IoT</h2>
-
-    <div class="project">
-      <h3>Smart Waiting Rooms (IoT Hospital System)</h3>
-      <p>Developed an IoT-based seat occupancy monitoring system using ESP8266, MQTT, Node-RED, and MongoDB for hospital waiting rooms.</p>
-    </div>
-
-    <div class="project">
-      <h3>IoT Cloud System using ESP8266 and MQTT</h3>
-      <p>Implemented a cloud-connected IoT system with ESP8266, DHT sensors, MQTT, Node-RED, MongoDB, and Microsoft Azure.</p>
-    </div>
-
-    <div class="project">
-      <h3>Embedded Systems using FreeRTOS</h3>
-      <p>Implemented multitasking embedded applications using FreeRTOS with semaphores, queues, and task prioritization.</p>
-    </div>
-
-    <div class="project">
-      <h3>Cyclic Executive Scheduler (Real-Time Systems)</h3>
-      <p>Designed and tested a cyclic executive scheduler for hard real-time tasks without using an RTOS.</p>
-    </div>
-
-    <!-- ================= MACHINE LEARNING ================= -->
-    <h2>Machine Learning</h2>
-
-    <div class="project">
-      <h3>Malaria Cell Image Classification</h3>
-      <p>Built a CNN using TensorFlow and Keras to classify malaria-infected and uninfected blood cell images.</p>
-    </div>
-
+    <footer>
+      © <span id="y"></span> Pranjal Samant · Built with GitHub Pages
+    </footer>
   </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
