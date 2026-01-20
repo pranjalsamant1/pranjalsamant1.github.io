@@ -4,31 +4,208 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pranjal Samant · Portfolio</title>
+  <meta name="description" content="Pranjal Samant — Graduate Engineer building practical systems with robotics, embedded systems, IoT, and AI (ML/OpenCV)." />
   <style>
-    body { font-family: system-ui, Arial, sans-serif; margin: 0; padding: 48px 20px; line-height: 1.6; }
-    .wrap { max-width: 900px; margin: 0 auto; }
-    h1 { margin: 0 0 8px; }
-    p { margin: 0 0 16px; color: #444; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .card { padding: 16px; border: 1px solid #e6e6e6; border-radius: 14px; margin-top: 18px; }
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --subtle: rgba(255,255,255,.55);
+      --link: #7dd3fc;
+      --pill: rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(56,189,248,.25), transparent 55%),
+        radial-gradient(1000px 700px at 85% 25%, rgba(167,139,250,.22), transparent 55%),
+        radial-gradient(900px 700px at 50% 85%, rgba(34,197,94,.15), transparent 55%),
+        var(--bg);
+      padding: 56px 20px;
+    }
+
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    .top{
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .hero{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    h1{
+      font-size: clamp(28px, 3.2vw, 42px);
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline{ margin: 0 0 10px; color: var(--muted); font-size: 16px; }
+    .edu{ margin: 0; color: var(--subtle); font-size: 14px; }
+
+    .pills{ display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; }
+    .pill{
+      display: inline-flex;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      background: var(--pill);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .sidebar{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar h2{
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btns{ display: grid; gap: 10px; }
+    .btn{
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); text-decoration: none; }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .card h2{ margin: 0 0 10px; font-size: 18px; }
+    .card p{ margin: 0 0 10px; color: var(--muted); }
+    .muted{ color: var(--subtle); }
+
+    footer{
+      margin-top: 22px;
+      color: var(--subtle);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px){
+      .top{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Hi, I’m Pranjal Samant 👋</h1>
-    <p>A passionate engineer who loves building projects that has realwolrd applications.</p>
-    <p>
-      <a href="https://github.com/pranjalsamant1">GitHub</a> ·
-      <a href="https://linkedin.com/in/pranjalsamant">LinkedIn</a>
-    </p>
-    <p>
-      <a href="projects.html">View Projects →</a>
-    </p>
-    <div class="card">
-      <h2 style="margin:0 0 8px;">What’s here</h2>
-      <p style="margin:0;">This portfolio is under construction. Next: projects, skills, and contact.</p>
-    </div>
+    <section class="top">
+      <div class="hero">
+        <h1>Pranjal Samant</h1>
+        <p class="tagline">
+          Graduate engineer who enjoys turning ideas into working systems using robotics, embedded systems, and AI.
+        </p>
+        <p class="edu">MSc in Robotics · BTech in Electronics & Communication Engineering</p>
+
+        <div class="pills" aria-label="Focus areas">
+          <span class="pill">Robotics</span>
+          <span class="pill">Embedded Systems</span>
+          <span class="pill">IoT</span>
+          <span class="pill">Python</span>
+          <span class="pill">Arduino / Microcontrollers</span>
+          <span class="pill">MATLAB</span>
+          <span class="pill">Machine Learning</span>
+          <span class="pill">OpenCV</span>
+          <span class="pill">System Integration</span>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h2>Quick links</h2>
+        <div class="btns">
+          <a class="btn" href="projects.html">View Projects <span>→</span></a>
+          <a class="btn" href="https://github.com/pranjalsamant1" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <a class="btn" href="https://linkedin.com/in/pranjalsamant" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+        </div>
+        <p class="muted" style="margin:12px 0 0;">
+          Each project includes documentation, results, and source code where available.
+        </p>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>What I build</h2>
+        <p>
+          I enjoy working on projects where hardware and software come together — from embedded systems and IoT to robotics,
+          computer vision, and machine learning. I like taking ideas from concept to implementation, testing them in real-world
+          conditions, and improving them through iteration.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>What’s next</h2>
+        <p>
+          I’m building a portfolio of engineering projects on GitHub with clear documentation, visuals, and reproducible results.
+        </p>
+        <p class="muted">
+          Browse my work on the Projects page.
+        </p>
+        <p style="margin: 12px 0 0;">
+          <a href="projects.html">Go to Projects →</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Pranjal Samant · Built with GitHub Pages
+    </footer>
   </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
