@@ -39,9 +39,9 @@
 
     .top{
       display: grid;
-      grid-template-columns: 1.35fr .65fr;
+      grid-template-columns: 1.25fr .75fr;
       gap: 18px;
-      align-items: start;
+      align-items: stretch;
       margin-bottom: 18px;
     }
 
@@ -52,9 +52,13 @@
       padding: 22px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
     }
 
-    h1{
+    .hero-text h1{
       font-size: clamp(28px, 3.2vw, 42px);
       margin: 0 0 6px;
       letter-spacing: -0.02em;
@@ -73,6 +77,23 @@
       font-size: 13px;
       color: var(--muted);
       white-space: nowrap;
+    }
+
+    .profile-pic{
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      flex-shrink: 0;
+    }
+
+    .profile-pic img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .sidebar{
@@ -135,6 +156,8 @@
 
     @media (max-width: 860px){
       .top{ grid-template-columns: 1fr; }
+      .hero{ grid-template-columns: 1fr; text-align: center; }
+      .profile-pic{ margin: 0 auto; }
       .grid{ grid-template-columns: 1fr; }
     }
   </style>
@@ -146,21 +169,27 @@
     <!-- HERO -->
     <section class="top">
       <div class="hero">
-        <h1>Pranjal Samant</h1>
-        <p class="tagline">
-          Graduate engineer focused on building practical, real-world systems using robotics,
-          embedded systems, and AI.
-        </p>
-        <p class="edu">MSc in Robotics · BTech in Electronics & Communication Engineering</p>
+        <div class="hero-text">
+          <h1>Pranjal Samant</h1>
+          <p class="tagline">
+            Graduate engineer focused on building practical, real-world systems using robotics,
+            embedded systems, and AI.
+          </p>
+          <p class="edu">MSc in Robotics · BTech in Electronics & Communication Engineering</p>
 
-        <div class="pills">
-          <span class="pill">Robotics</span>
-          <span class="pill">Autonomous Systems</span>
-          <span class="pill">Embedded Systems</span>
-          <span class="pill">IoT</span>
-          <span class="pill">Machine Learning</span>
-          <span class="pill">Computer Vision</span>
-          <span class="pill">System Integration</span>
+          <div class="pills">
+            <span class="pill">Robotics</span>
+            <span class="pill">Autonomous Systems</span>
+            <span class="pill">Embedded Systems</span>
+            <span class="pill">IoT</span>
+            <span class="pill">Machine Learning</span>
+            <span class="pill">Computer Vision</span>
+            <span class="pill">System Integration</span>
+          </div>
+        </div>
+
+        <div class="profile-pic">
+          <img src="assets/images/profile.jpg" alt="Pranjal Samant profile photo">
         </div>
       </div>
 
@@ -189,9 +218,8 @@
 
         <p>
           I contributed to the design, development, and evaluation of an
-          <strong>autonomous robotic system prototype</strong> that was delivered to an
-          external client organisation. This work bridges applied robotics research
-          with real-world system deployment.
+          <strong>autonomous robotic system prototype</strong> delivered to an
+          external client organisation, bridging applied research with real-world deployment.
         </p>
 
         <div class="pills">
@@ -204,13 +232,12 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
           <a class="btn"
              href="https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2025.1506290/full"
-             target="_blank" rel="noreferrer">
+             target="_blank">
             Read publication →
           </a>
-
           <a class="btn"
              href="https://www.youtube.com/watch?v=MXxTeyBVJWg"
-             target="_blank" rel="noreferrer">
+             target="_blank">
             Watch system demo ↗
           </a>
         </div>
