@@ -193,11 +193,11 @@
     <header>
       <h1>Projects</h1>
       <p>
-        A curated set of hands-on projects demonstrating my work across robotics, embedded systems, IoT, and AI (ML/OpenCV).
-        Each project links to a GitHub repository with documentation, results, and source code where available.
+        A curated set of hands-on projects demonstrating my work across robotics, embedded systems, IoT, and AI (ML / Computer Vision).
+        Each project links to a GitHub repository with documentation, results, and source code.
       </p>
       <p class="muted" style="margin:0;">
-        Tip: If you’re reviewing quickly, start with the first project — it shows full system integration.
+        Tip: If you’re reviewing quickly, start with the first project — it demonstrates full system integration.
       </p>
     </header>
 
@@ -208,26 +208,22 @@
         <div class="thumb">
           <img src="./assets/images/2d-image-printer-robot.jpg" alt="2D Image Printer Robot thumbnail">
         </div>
-
         <div>
           <h2>2D Image Printer Robot</h2>
           <p>
-            A robotic “dot-matrix style” drawing system that converts a digital image into a physical drawing on a cylindrical surface.
-            The pipeline uses MATLAB for image processing (binary/edge-based dot representation) and Arduino-based motor control
-            (stepper + servos) to coordinate cylinder rotation, pen translation, and pen contact.
+            A robotic drawing system that converts a digital image into a physical drawing on a cylindrical surface.
+            MATLAB is used for image processing, while Arduino-based motor control coordinates stepper motors and servos
+            to synchronize cylinder rotation, pen translation, and pen contact.
           </p>
-
-          <div class="pills" aria-label="Skills and tools used">
+          <div class="pills">
             <span class="pill">Robotics</span>
             <span class="pill">Embedded Systems</span>
             <span class="pill">Arduino</span>
             <span class="pill">MATLAB</span>
             <span class="pill">Image Processing</span>
-            <span class="pill">Servo/Stepper Control</span>
           </div>
-
           <div class="links">
-            <a class="btn" href="https://github.com/pranjalsamant1/2D-Image-Printer-Robot" target="_blank" rel="noreferrer">View Repository →</a>
+            <a class="btn" href="https://github.com/pranjalsamant1/2D-Image-Printer-Robot" target="_blank">View Repository →</a>
           </div>
         </div>
       </article>
@@ -235,74 +231,82 @@
       <!-- Project 2 -->
       <article class="project">
         <div class="thumb">
-          <!-- Upload a thumbnail into your GitHub Pages repo at: assets/images/robotic-arm-application.jpg -->
           <img src="./assets/images/live_test.jpeg" alt="Robotic Arm Application thumbnail">
         </div>
-
         <div>
           <h2>Robotic Arm Application (AR + Voice Control)</h2>
           <p>
-            A voice-controlled robotic arm interface integrating Augmented Reality (Unity) with ROS for hands-free robot programming.
-            Voice commands captured on a RealWear headset are translated into ROS actions (via ROSBridge/WebSockets) and executed in a
-            Gazebo simulation using MoveIt! for motion planning. Evaluation includes command accuracy, response latency, and precision.
+            A voice-controlled robotic arm interface integrating Augmented Reality (Unity) with ROS.
+            Voice commands are translated into ROS actions and executed in a Gazebo simulation using MoveIt!
+            for motion planning and evaluation.
           </p>
-
-          <div class="pills" aria-label="Skills and tools used">
+          <div class="pills">
             <span class="pill">ROS</span>
             <span class="pill">Unity (AR)</span>
             <span class="pill">Gazebo</span>
             <span class="pill">MoveIt!</span>
-            <span class="pill">ROSBridge / WebSockets</span>
-            <span class="pill">HRI (Voice)</span>
           </div>
-
           <div class="links">
-            <a class="btn" href="https://github.com/pranjalsamant1/Robotic_Arm_Application" target="_blank" rel="noreferrer">View Repository →</a>
-            <a class="btn" href="https://github.com/pranjalsamant1/Robotic_Arm_Application/blob/main/Project_Files/Video/robotcontrolapp_workingvideo.mp4" target="_blank" rel="noreferrer">Watch Demo ↗</a>
+            <a class="btn" href="https://github.com/pranjalsamant1/Robotic_Arm_Application" target="_blank">View Repository →</a>
+            <a class="btn" href="https://github.com/pranjalsamant1/Robotic_Arm_Application/blob/main/Project_Files/Video/robotcontrolapp_workingvideo.mp4" target="_blank">Watch Demo ↗</a>
           </div>
         </div>
       </article>
-      
+
       <!-- Project 3 -->
-<article class="project">
-  <div class="thumb">
-    <!-- Upload a thumbnail into your GitHub Pages repo at: assets/images/smart-waiting-rooms.jpg -->
-    <img src="./assets/images/smart_waiting_room_portfolio.png" alt="Smart Waiting Rooms IoT dashboard thumbnail">
-  </div>
+      <article class="project">
+        <div class="thumb">
+          <img src="./assets/images/webapp_result.png" alt="Malaria Cell Image Classification thumbnail">
+        </div>
+        <div>
+          <h2>Malaria Cell Image Classification (CNN + Streamlit)</h2>
+          <p>
+            An end-to-end deep learning project that classifies blood smear cell images as Uninfected or Parasitized
+            using a TensorFlow CNN. Includes a professional Streamlit web application for upload-and-predict inference,
+            confidence visualization, and a reproducible training and CLI pipeline.
+          </p>
+          <div class="pills">
+            <span class="pill">Python</span>
+            <span class="pill">TensorFlow</span>
+            <span class="pill">CNN</span>
+            <span class="pill">Computer Vision</span>
+            <span class="pill">Medical Imaging</span>
+            <span class="pill">Streamlit</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://github.com/pranjalsamant1/malaria-cell-image-classification" target="_blank">View Repository →</a>
+          </div>
+        </div>
+      </article>
 
-  <div>
-    <h2>Smart Waiting Rooms (IoT Occupancy Monitoring)</h2>
-    <p>
-      An end-to-end IoT system designed to monitor seat occupancy in hospital waiting rooms in real time.
-      Distributed ESP8266 sensing nodes detect occupancy events and communicate wirelessly using ESP-NOW
-      to a central bridge node, which publishes data to an MQTT broker. A Node-RED dashboard visualizes
-      live seat status and system activity, demonstrating a complete embedded-to-cloud IoT pipeline.
-    </p>
+      <!-- Project 4 -->
+      <article class="project">
+        <div class="thumb">
+          <img src="./assets/images/smart_waiting_room_portfolio.png" alt="Smart Waiting Rooms thumbnail">
+        </div>
+        <div>
+          <h2>Smart Waiting Rooms (IoT Occupancy Monitoring)</h2>
+          <p>
+            An IoT system for monitoring seat occupancy in hospital waiting rooms using ESP8266 nodes,
+            ESP-NOW wireless communication, MQTT, and a Node-RED dashboard, demonstrating an embedded-to-cloud pipeline.
+          </p>
+          <div class="pills">
+            <span class="pill">IoT</span>
+            <span class="pill">Embedded Systems</span>
+            <span class="pill">ESP8266</span>
+            <span class="pill">MQTT</span>
+            <span class="pill">Node-RED</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://github.com/pranjalsamant1/smart-waiting-rooms-iot" target="_blank">View Repository →</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="pills" aria-label="Skills and tools used">
-      <span class="pill">IoT Systems</span>
-      <span class="pill">Embedded Systems</span>
-      <span class="pill">ESP8266</span>
-      <span class="pill">ESP-NOW</span>
-      <span class="pill">MQTT</span>
-      <span class="pill">Node-RED</span>
-      <span class="pill">Wireless Communication</span>
-      <span class="pill">System Architecture</span>
-    </div>
-
-    <div class="links">
-      <a class="btn" href="https://github.com/pranjalsamant1/smart-waiting-rooms-iot" target="_blank" rel="noreferrer">
-        View Repository →
-      </a>
-    </div>
-  </div>
-</article>
-
-      
     </section>
 
     <div class="smallnote">
-      More projects will be added over time as I continue documenting and publishing my work.
+      More projects will be added as I continue documenting and publishing my work.
     </div>
 
     <footer>
