@@ -3,281 +3,817 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pranjal Samant · Portfolio</title>
-  <meta name="description" content="Pranjal Samant — Graduate Engineer building practical systems with robotics, embedded systems, IoT, and AI (ML/OpenCV)." />
+  <title>Pranjal Samant · Embedded Firmware Engineer</title>
+  <meta name="description" content="Pranjal Samant — Embedded Firmware Engineer. MSc Robotics, Heriot-Watt. Specialising in FreeRTOS, ESP32, real-time systems, and hardware-firmware integration." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg: #0b1220;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --subtle: rgba(255,255,255,.55);
-      --link: #7dd3fc;
-      --pill: rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    :root {
+      --bg: #080c14;
+      --surface: #0e1420;
+      --surface2: #131926;
+      --border: rgba(255,255,255,0.07);
+      --border-bright: rgba(255,255,255,0.14);
+      --text: #e8eaf0;
+      --muted: rgba(232,234,240,0.6);
+      --subtle: rgba(232,234,240,0.35);
+      --accent: #00d4aa;
+      --accent2: #3b82f6;
+      --accent-dim: rgba(0,212,170,0.12);
+      --accent-dim2: rgba(59,130,246,0.1);
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Syne', sans-serif;
     }
 
-    * { box-sizing: border-box; }
-    body{
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.6;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
       color: var(--text);
-      background:
-        radial-gradient(1200px 800px at 20% 10%, rgba(56,189,248,.25), transparent 55%),
-        radial-gradient(1000px 700px at 85% 25%, rgba(167,139,250,.22), transparent 55%),
-        radial-gradient(900px 700px at 50% 85%, rgba(34,197,94,.15), transparent 55%),
-        var(--bg);
-      padding: 56px 20px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    a{ color: var(--link); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-
-    .wrap{ max-width: 980px; margin: 0 auto; }
-
-    .top{
-      display: grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 18px;
-      align-items: stretch;
-      margin-bottom: 18px;
+    /* Grid texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .hero{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
+    /* Glow orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(0,212,170,0.06); top: -200px; left: -100px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(59,130,246,0.07); bottom: -100px; right: -50px; }
+
+    .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,20,0.8);
+    }
+
+    .nav-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .hero-text h1{
-      font-size: clamp(28px, 3.2vw, 42px);
-      margin: 0 0 6px;
+    .nav-logo {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--accent-dim); }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,212,170,0.2);
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .name { color: var(--text); display: block; }
+    .hero h1 .role { color: var(--accent); display: block; }
+
+    .hero-desc {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .hero-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .stack-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border-bright);
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #080c14;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      border: 1px solid var(--border-bright);
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .hero-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--subtle);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .stat-label { font-size: 12px; color: var(--subtle); font-family: var(--mono); }
+    .stat-value { font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--text); text-align: right; max-width: 140px; }
+    .stat-value.accent { color: var(--accent); }
+
+    /* SECTION HEADER */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-top: 64px;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 700;
       letter-spacing: -0.02em;
     }
 
-    .tagline{ margin: 0 0 10px; color: var(--muted); font-size: 16px; }
-    .edu{ margin: 0; color: var(--subtle); font-size: 14px; }
-
-    .pills{ display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; }
-    .pill{
-      display: inline-flex;
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      background: var(--pill);
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--muted);
-      white-space: nowrap;
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
-    .profile-pic{
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+    /* EXPERTISE */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 64px;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.05);
-      flex-shrink: 0;
     }
 
-    .profile-pic img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .exp-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+    .exp-card.primary { border-color: rgba(0,212,170,0.25); }
+    .exp-card.primary::after {
+      content: 'Core';
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .exp-icon {
+      font-family: var(--mono);
+      font-size: 22px;
+      margin-bottom: 12px;
       display: block;
     }
 
-    .sidebar{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+    .exp-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 8px;
     }
 
-    .sidebar h2{
-      margin: 0 0 10px;
+    .exp-desc {
       font-size: 13px;
       color: var(--muted);
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      line-height: 1.55;
+      margin-bottom: 12px;
     }
 
-    .btns{ display: grid; gap: 10px; }
-    .btn{
-      display: inline-flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      text-decoration: none;
-    }
-    .btn:hover{ background: rgba(255,255,255,.08); text-decoration: none; }
-
-    .grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 18px;
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .card h2{ margin: 0 0 10px; font-size: 18px; }
-    .card p{ margin: 0 0 10px; color: var(--muted); }
-    .muted{ color: var(--subtle); }
-
-    footer{
-      margin-top: 22px;
+    .exp-tag {
+      font-family: var(--mono);
+      font-size: 11px;
       color: var(--subtle);
-      font-size: 13px;
+      background: var(--surface2);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    /* EXPERIENCE TIMELINE */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 64px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-item.secondary::before { background: var(--accent2); }
+
+    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+
+    .tl-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--subtle);
+      background: var(--surface2);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .tl-org {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .tl-org.blue { color: var(--accent2); }
+
+    .tl-points { list-style: none; }
+
+    .tl-points li {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 4px 0 4px 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .tl-points li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* PUBLICATION */
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 12px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pub-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent2), var(--accent));
+    }
+
+    .pub-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .pub-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .pub-journal {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pub-actions { display: flex; flex-direction: column; gap: 10px; }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 64px 0;
       text-align: center;
     }
 
-    @media (max-width: 860px){
-      .top{ grid-template-columns: 1fr; }
-      .hero{ grid-template-columns: 1fr; text-align: center; }
-      .profile-pic{ margin: 0 auto; }
-      .grid{ grid-template-columns: 1fr; }
+    .contact-section h2 {
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+
+    .contact-section p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 420px;
+      margin: 0 auto 32px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .pub-card { grid-template-columns: 1fr; }
+      .pub-actions { flex-direction: row; }
+      nav .nav-links { display: none; }
     }
   </style>
 </head>
-
 <body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">PS<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="projects.html">Projects</a></li>
+      </ul>
+      <a class="nav-cta" href="mailto:pranjalsamant@outlook.com">Hire me →</a>
+    </div>
+  </nav>
+
   <div class="wrap">
 
     <!-- HERO -->
-    <section class="top">
-      <div class="hero">
-        <div class="hero-text">
-          <h1>Pranjal Samant</h1>
-          <p class="tagline">
-            Graduate engineer focused on building practical, real-world systems using robotics,
-            embedded systems, and AI.
-          </p>
-          <p class="edu">MSc in Robotics · BTech in Electronics & Communication Engineering</p>
+    <section class="hero">
+      <div>
+        <div class="hero-tag fade-in">Available for embedded roles · Edinburgh, UK</div>
 
-          <div class="pills">
-            <span class="pill">Robotics</span>
-            <span class="pill">Autonomous Systems</span>
-            <span class="pill">Embedded Systems</span>
-            <span class="pill">IoT</span>
-            <span class="pill">Machine Learning</span>
-            <span class="pill">Computer Vision</span>
-            <span class="pill">System Integration</span>
+        <h1 class="fade-in delay-1">
+          <span class="name">Pranjal Samant</span>
+          <span class="role">Embedded Firmware<br>Engineer</span>
+        </h1>
+
+        <p class="hero-desc fade-in delay-2">
+          I build firmware that runs close to the metal — bare-metal C, FreeRTOS multitasking,
+          real-time control on ESP32 and ATmega2560. MSc Robotics from Heriot-Watt.
+          Hands-on experience delivering production systems at the National Robotarium.
+        </p>
+
+        <div class="hero-stack fade-in delay-3">
+          <span class="stack-tag">Embedded C</span>
+          <span class="stack-tag">FreeRTOS</span>
+          <span class="stack-tag">ESP32</span>
+          <span class="stack-tag">ATmega2560</span>
+          <span class="stack-tag">UART · SPI · I2C</span>
+          <span class="stack-tag">Embedded Linux</span>
+          <span class="stack-tag">Real-Time Systems</span>
+        </div>
+
+        <div class="hero-actions fade-in delay-4">
+          <a class="btn-primary" href="projects.html">View Projects →</a>
+          <a class="btn-ghost" href="https://github.com/pranjalsamant1" target="_blank">GitHub ↗</a>
+          <a class="btn-ghost" href="https://linkedin.com/in/pranjalsamant" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-card fade-in delay-5">
+        <div class="hero-card-label">// at a glance</div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-label">Degree</span>
+            <span class="stat-value accent">MSc Robotics</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">University</span>
+            <span class="stat-value">Heriot-Watt<br>Edinburgh</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Platforms</span>
+            <span class="stat-value">ESP32 · ATmega<br>Raspberry Pi</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">RTOS</span>
+            <span class="stat-value accent">FreeRTOS</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Publication</span>
+            <span class="stat-value">Frontiers in<br>Robotics & AI</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Status</span>
+            <span class="stat-value accent">Open to work</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Expertise</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="expertise-grid">
+        <div class="exp-card primary">
+          <span class="exp-icon">//</span>
+          <div class="exp-title">Firmware Development</div>
+          <div class="exp-desc">Bare-metal C and FreeRTOS for resource-constrained microcontrollers. Cyclic executives, task scheduling, queues, semaphores, and deterministic timing.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Embedded C</span>
+            <span class="exp-tag">FreeRTOS</span>
+            <span class="exp-tag">Bare-Metal</span>
+            <span class="exp-tag">PlatformIO</span>
           </div>
         </div>
 
-        <div class="profile-pic">
-          <img src="assets/images/profile.jpg" alt="Pranjal Samant profile photo">
-        </div>
-      </div>
-
-      <aside class="sidebar">
-        <h2>Quick links</h2>
-        <div class="btns">
-          <a class="btn" href="projects.html">View Projects <span>→</span></a>
-          <a class="btn" href="https://github.com/pranjalsamant1" target="_blank">GitHub <span>↗</span></a>
-          <a class="btn" href="https://linkedin.com/in/pranjalsamant" target="_blank">LinkedIn <span>↗</span></a>
-        </div>
-        <p class="muted" style="margin:12px 0 0;">
-          Each project includes documentation, visuals, and reproducible results.
-        </p>
-      </aside>
-    </section>
-
-    <!-- FEATURED PUBLICATION -->
-    <section style="margin-top:18px;">
-      <div class="card">
-        <h2>📄 Featured Publication & Industry Internship</h2>
-
-        <p>
-          Peer-reviewed research published in <strong>Frontiers in Robotics and AI</strong>,
-          completed during my internship at the National Robotarium.
-        </p>
-
-        <p>
-          I contributed to the design, development, and evaluation of an
-          <strong>autonomous robotic system prototype</strong> delivered to an
-          external client organisation, bridging applied research with real-world deployment.
-        </p>
-
-        <div class="pills">
-          <span class="pill">Peer-Reviewed Research</span>
-          <span class="pill">Autonomous Robotics</span>
-          <span class="pill">Industry Internship</span>
-          <span class="pill">System Prototyping</span>
+        <div class="exp-card primary">
+          <span class="exp-icon">⚡</span>
+          <div class="exp-title">Hardware Integration</div>
+          <div class="exp-desc">Sensor and actuator interfacing via UART, SPI, I2C, GPIO. Hardware-in-the-loop debugging with oscilloscopes and serial monitors. PCB prototyping.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">UART</span>
+            <span class="exp-tag">SPI</span>
+            <span class="exp-tag">I2C</span>
+            <span class="exp-tag">GPIO</span>
+            <span class="exp-tag">Oscilloscope</span>
+          </div>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-          <a class="btn"
-             href="https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2025.1506290/full"
-             target="_blank">
-            Read publication →
-          </a>
-          <a class="btn"
-             href="https://www.youtube.com/watch?v=MXxTeyBVJWg"
-             target="_blank">
-            Watch system demo ↗
-          </a>
+        <div class="exp-card primary">
+          <span class="exp-icon">◈</span>
+          <div class="exp-title">Real-Time Systems</div>
+          <div class="exp-desc">Designing and verifying deterministic execution — cyclic executives, deadline analysis, timing instrumentation under real hardware constraints.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Real-Time</span>
+            <span class="exp-tag">Timing Analysis</span>
+            <span class="exp-tag">Control Systems</span>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section class="grid">
-      <div class="card">
-        <h2>What I build</h2>
-        <p>
-          I work on systems where hardware and software come together — from embedded
-          and real-time systems to robotics, computer vision, and machine learning.
-          I enjoy taking ideas from concept to working prototypes and refining them
-          through testing and iteration.
-        </p>
-      </div>
+        <div class="exp-card">
+          <span class="exp-icon">◻</span>
+          <div class="exp-title">Embedded Linux & SBCs</div>
+          <div class="exp-desc">Raspberry Pi integration with microcontrollers over UART. Separating high-level control from low-level actuation for fault isolation and robustness.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Embedded Linux</span>
+            <span class="exp-tag">Raspberry Pi</span>
+            <span class="exp-tag">Linux</span>
+          </div>
+        </div>
 
-      <div class="card">
-        <h2>What’s next</h2>
-        <p>
-          I’m actively building a portfolio of engineering projects with strong
-          documentation, system-level thinking, and real-world relevance.
-        </p>
-        <p class="muted">
-          Explore my projects to see how I approach design, implementation, and evaluation.
-        </p>
-        <p style="margin:12px 0 0;">
-          <a href="projects.html">Go to Projects →</a>
-        </p>
+        <div class="exp-card">
+          <span class="exp-icon">⟳</span>
+          <div class="exp-title">Robotics & Autonomous Systems</div>
+          <div class="exp-desc">ROS/ROS2, MoveIt!, Gazebo simulation. Voice-controlled robotic arm achieving 100% command accuracy and 112ms latency. Navigation and motion planning.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">ROS</span>
+            <span class="exp-tag">MoveIt!</span>
+            <span class="exp-tag">Gazebo</span>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <span class="exp-icon">◎</span>
+          <div class="exp-title">IoT & Connectivity</div>
+          <div class="exp-desc">ESP-NOW wireless, MQTT messaging, Node-RED dashboards. End-to-end embedded-to-cloud data pipelines for monitoring and telemetry.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">IoT</span>
+            <span class="exp-tag">MQTT</span>
+            <span class="exp-tag">ESP8266</span>
+            <span class="exp-tag">Node-RED</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer>
-      © <span id="y"></span> Pranjal Samant · Built with GitHub Pages
-    </footer>
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Experience</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-title">Embedded / Electronics Systems Intern</div>
+            <span class="tl-date">Jun 2023 – Oct 2023</span>
+          </div>
+          <div class="tl-org">National Robotarium · Edinburgh, UK</div>
+          <ul class="tl-points">
+            <li>Led embedded and electronics development for a robotic automation system delivered to an MNC client — Industry 4.0 initiative</li>
+            <li>Integrated 5+ sensors and 13+ actuators in a closed-loop control system covering cutting, pneumatic, and pick-and-place operations</li>
+            <li>Wrote bare-metal firmware in C for Arduino; integrated Raspberry Pi (Embedded Linux) over UART, separating high-level cobot control from low-level actuation</li>
+            <li>Debugged hardware-in-the-loop issues including timing errors, sensor noise, and actuator misalignment using oscilloscope and serial monitoring</li>
+            <li>Delivered full technical documentation; participated in weekly client meetings and site visits</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item secondary">
+          <div class="tl-header">
+            <div class="tl-title">Software Engineering Intern</div>
+            <span class="tl-date">Jan 2022 – Jun 2022</span>
+          </div>
+          <div class="tl-org blue">CDAC · Mohali, India</div>
+          <ul class="tl-points">
+            <li>Built Python-based data processing pipelines to clean and analyse image samples for malaria detection research</li>
+            <li>Validated data quality and model outputs supporting reliable experimental results in a research environment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATION -->
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Publication</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pub-card">
+      <div>
+        <div class="pub-label">Peer-reviewed · 2025</div>
+        <div class="pub-title">Autonomous Robotic System for Industry 4.0 —<br>National Robotarium</div>
+        <div class="pub-journal">Frontiers in Robotics and AI · Co-authored during internship</div>
+      </div>
+      <div class="pub-actions">
+        <a class="btn-primary" href="https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2025.1506290/full" target="_blank">Read paper →</a>
+        <a class="btn-ghost" href="https://www.youtube.com/watch?v=MXxTeyBVJWg" target="_blank">Watch demo ↗</a>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+      <h2>Let's build something.</h2>
+      <p>Open to embedded firmware, electronics, and robotics roles across the UK. Available immediately.</p>
+      <div class="contact-links">
+        <a class="btn-primary" href="mailto:pranjalsamant@outlook.com">pranjalsamant@outlook.com</a>
+        <a class="btn-ghost" href="https://linkedin.com/in/pranjalsamant" target="_blank">LinkedIn ↗</a>
+        <a class="btn-ghost" href="https://github.com/pranjalsamant1" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+
   </div>
 
+  <footer>
+    © <span id="y"></span> Pranjal Samant · Embedded Firmware Engineer · Edinburgh, UK
+  </footer>
+
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
