@@ -4,611 +4,140 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects · Pranjal Samant</title>
-  <meta name="description" content="Embedded firmware, IoT, robotics, and AI projects by Pranjal Samant. ESP32, FreeRTOS, Arduino, ROS." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #080c14;
-      --surface: #0e1420;
-      --surface2: #131926;
-      --border: rgba(255,255,255,0.07);
-      --border-bright: rgba(255,255,255,0.14);
-      --text: #e8eaf0;
-      --muted: rgba(232,234,240,0.6);
-      --subtle: rgba(232,234,240,0.35);
-      --accent: #00d4aa;
-      --accent2: #3b82f6;
-      --accent3: #a78bfa;
-      --accent-dim: rgba(0,212,170,0.1);
-      --mono: 'DM Mono', monospace;
-      --sans: 'DM Sans', sans-serif;
-      --display: 'Syne', sans-serif;
-    }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-family: Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #000000;
+      min-height: 100vh;
+      padding: 64px 24px;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 { width: 500px; height: 500px; background: rgba(0,212,170,0.05); top: -150px; right: 0; }
-    .orb-2 { width: 400px; height: 400px; background: rgba(59,130,246,0.06); bottom: 100px; left: -100px; }
-
-    .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-    /* NAV */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 16px 0;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      background: rgba(8,12,20,0.8);
-    }
-
-    .nav-inner {
-      max-width: 1020px;
+    .wrap {
+      max-width: 600px;
       margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    .nav-logo { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--text); text-decoration: none; }
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links { display: flex; gap: 24px; list-style: none; }
-    .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a.active { color: var(--accent); }
-
-    .nav-cta {
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 6px;
-      border: 1px solid var(--accent);
-      color: var(--accent);
+    .back {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000000;
       text-decoration: none;
-      transition: background 0.2s;
-    }
-    .nav-cta:hover { background: var(--accent-dim); }
-
-    /* PAGE HEADER */
-    .page-header {
-      padding: 64px 0 48px;
+      display: inline-block;
+      margin-bottom: 48px;
+      letter-spacing: 0.01em;
+      animation: popIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    .breadcrumb {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--subtle);
-      margin-bottom: 24px;
-    }
+    .back:hover { text-decoration: underline; }
 
-    .breadcrumb a { color: var(--muted); text-decoration: none; }
-    .breadcrumb a:hover { color: var(--accent); }
-    .breadcrumb span { color: var(--subtle); }
-
-    .page-header h1 {
-      font-family: var(--display);
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-
-    .page-header p {
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 560px;
-      font-weight: 300;
-    }
-
-    /* FILTER TABS */
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .filter-tab {
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 6px;
-      border: 1px solid var(--border-bright);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-tab.active { background: var(--accent-dim); border-color: rgba(0,212,170,0.3); color: var(--accent); }
-
-    /* CATEGORY LABEL */
-    .cat-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      margin: 40px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .cat-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .cat-label.embedded { color: var(--accent); }
-    .cat-label.robotics { color: var(--accent3); }
-    .cat-label.iot { color: var(--accent2); }
-    .cat-label.ml { color: var(--muted); }
-
-    /* PROJECT CARDS */
-    .project-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      transition: border-color 0.25s, transform 0.2s;
-      position: relative;
-    }
-
-    .project-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
-    .project-card.featured { border-color: rgba(0,212,170,0.2); }
-
-    .project-card.featured::before {
-      content: 'Featured';
-      position: absolute;
-      top: 14px; right: 14px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(0,212,170,0.2);
-      padding: 3px 10px;
-      border-radius: 3px;
-      z-index: 2;
-    }
-
-    .project-thumb {
-      aspect-ratio: 16/10;
-      background: var(--surface2);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .project-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .project-card:hover .project-thumb img { transform: scale(1.04); }
-
-    .project-thumb-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
+    h1 {
       font-size: 28px;
-      color: var(--subtle);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+      animation: popIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
     }
 
-    /* Category stripe on thumb */
-    .project-thumb::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
+    .project-list {
+      list-style: none;
     }
 
-    .project-card.cat-embedded .project-thumb::after { background: var(--accent); }
-    .project-card.cat-robotics .project-thumb::after { background: var(--accent3); }
-    .project-card.cat-iot .project-thumb::after { background: var(--accent2); }
-    .project-card.cat-ml .project-thumb::after { background: rgba(232,234,240,0.3); }
-
-    .project-body { padding: 22px 24px; display: flex; flex-direction: column; }
-
-    .project-meta {
+    .project-item {
+      border-top: 1px solid #000000;
+      padding: 24px 0;
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .project-cat {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 3px;
+    .project-item:last-child {
+      border-bottom: 1px solid #000000;
     }
 
-    .cat-embedded .project-cat { color: var(--accent); background: rgba(0,212,170,0.1); }
-    .cat-robotics .project-cat { color: var(--accent3); background: rgba(167,139,250,0.1); }
-    .cat-iot .project-cat { color: var(--accent2); background: rgba(59,130,246,0.1); }
-    .cat-ml .project-cat { color: var(--subtle); background: var(--surface2); }
-
-    .project-h { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-
-    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 14px; }
-
-    .project-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-
-    .pill {
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 3px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--subtle);
-    }
-
-    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn-sm {
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .btn-sm.primary {
-      background: var(--accent);
-      color: #080c14;
+    .project-name {
+      font-size: 16px;
       font-weight: 500;
+      line-height: 1.4;
     }
 
-    .btn-sm.primary:hover { opacity: 0.85; }
-
-    .btn-sm.ghost {
-      border: 1px solid var(--border-bright);
-      color: var(--muted);
+    .btn-view {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #000000;
+      text-decoration: none;
+      border: 1px solid #000000;
+      padding: 8px 18px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
     }
 
-    .btn-sm.ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* NOTE */
-    .note {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--subtle);
-      text-align: center;
-      padding: 24px;
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      margin: 32px 0 64px;
+    .btn-view:hover {
+      background: #000000;
+      color: #ffffff;
     }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--subtle);
-    }
+    .project-item:nth-child(1) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
+    .project-item:nth-child(2) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.17s both; }
+    .project-item:nth-child(3) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both; }
+    .project-item:nth-child(4) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.31s both; }
+    .project-item:nth-child(5) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both; }
+    .project-item:nth-child(6) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both; }
+    .project-item:nth-child(7) { animation: popIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both; }
 
-    .fade-in { opacity: 0; transform: translateY(16px); animation: fadeUp 0.5s ease forwards; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-
-    @media (max-width: 780px) {
-      .project-card { grid-template-columns: 1fr; }
-      .project-thumb { aspect-ratio: 16/9; }
-      nav .nav-links { display: none; }
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.88);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
-  <nav>
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html">PS<span>.</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html#expertise">Expertise</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-      </ul>
-      <a class="nav-cta" href="mailto:pranjalsamant@outlook.com">Hire me →</a>
-    </div>
-  </nav>
-
   <div class="wrap">
+    <a class="back" href="index.html">← Back</a>
 
-    <header class="page-header fade-in">
-      <div class="breadcrumb">
-        <a href="index.html">Home</a>
-        <span>/</span>
-        <span>Projects</span>
-      </div>
-      <h1>Projects</h1>
-      <p>Hands-on work across embedded firmware, IoT, robotics, and AI — each with source code, documentation, and results.</p>
-    </header>
+    <h1>Projects</h1>
 
-    <div class="filter-tabs fade-in delay-1">
-      <button class="filter-tab active" onclick="filterProjects('all', this)">All projects</button>
-      <button class="filter-tab" onclick="filterProjects('embedded', this)">Embedded & IoT</button>
-      <button class="filter-tab" onclick="filterProjects('robotics', this)">Robotics</button>
-      <button class="filter-tab" onclick="filterProjects('ml', this)">AI & Vision</button>
-    </div>
-
-    <!-- EMBEDDED CATEGORY -->
-    <div class="cat-label embedded" data-cat="embedded">Embedded & Real-Time Systems</div>
-    <div class="project-grid" data-cat="embedded">
-
-      <article class="project-card featured cat-embedded">
-        <div class="project-thumb">
-          <img src="./assets/images/architecture.png" alt="ESP32 Cyclic Executive Monitor">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Embedded</span>
-          </div>
-          <h2 class="project-h">ESP32 Cyclic Executive Real-Time System</h2>
-          <p class="project-desc">
-            Hard real-time cyclic executive scheduler on ESP32 in bare-metal C — no RTOS. Executes deterministic waveform generation, frequency measurement on two digital inputs, analog signal monitoring with moving-average filtering, and periodic serial logging. Later extended with FreeRTOS multitasking using queues and semaphores, comparing both scheduling approaches under real hardware constraints.
-          </p>
-          <div class="project-pills">
-            <span class="pill">Embedded C</span>
-            <span class="pill">FreeRTOS</span>
-            <span class="pill">ESP32</span>
-            <span class="pill">Real-Time Systems</span>
-            <span class="pill">Timing Analysis</span>
-            <span class="pill">Bare-Metal</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/esp32-cyclic-executive-monitor" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card cat-iot">
-        <div class="project-thumb">
-          <img src="./assets/images/smart_waiting_room_portfolio.png" alt="Smart Waiting Rooms IoT">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">IoT</span>
-          </div>
-          <h2 class="project-h">Smart Waiting Rooms — IoT Occupancy Monitoring</h2>
-          <p class="project-desc">
-            End-to-end IoT system for hospital waiting room seat occupancy. ESP8266 nodes communicate wirelessly over ESP-NOW, relay data via MQTT, and surface live occupancy on a Node-RED dashboard — demonstrating a full embedded-to-cloud pipeline.
-          </p>
-          <div class="project-pills">
-            <span class="pill">IoT</span>
-            <span class="pill">ESP8266</span>
-            <span class="pill">ESP-NOW</span>
-            <span class="pill">MQTT</span>
-            <span class="pill">Node-RED</span>
-            <span class="pill">Embedded Systems</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/smart-waiting-rooms-iot" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- ROBOTICS CATEGORY -->
-    <div class="cat-label robotics" data-cat="robotics">Robotics & Mechatronics</div>
-    <div class="project-grid" data-cat="robotics">
-
-      <article class="project-card cat-robotics">
-        <div class="project-thumb">
-          <img src="./assets/images/live_test.jpeg" alt="Robotic Arm AR Voice Control">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Robotics</span>
-          </div>
-          <h2 class="project-h">Robotic Arm Application — AR + Voice Control</h2>
-          <p class="project-desc">
-            MSc dissertation. Voice-controlled robotic arm interface integrating RealWear AR hardware with ROS and MoveIt!. Spoken commands mapped to motion planning actions and executed in Gazebo simulation. Achieved 100% command recognition accuracy with 112ms end-to-end latency.
-          </p>
-          <div class="project-pills">
-            <span class="pill">ROS / ROS2</span>
-            <span class="pill">MoveIt!</span>
-            <span class="pill">Gazebo</span>
-            <span class="pill">Unity AR</span>
-            <span class="pill">Autonomous Systems</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/Robotic_Arm_Application" target="_blank">View Repository →</a>
-            <a class="btn-sm ghost" href="https://github.com/pranjalsamant1/Robotic_Arm_Application/blob/main/Project_Files/Video/robotcontrolapp_workingvideo.mp4" target="_blank">Watch Demo ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card cat-robotics">
-        <div class="project-thumb">
-          <img src="./assets/images/2d-image-printer-robot.jpg" alt="2D Image Printer Robot">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Mechatronics</span>
-          </div>
-          <h2 class="project-h">2D Image Printer Robot</h2>
-          <p class="project-desc">
-            Mechatronic drawing robot that converts a digital image into a physical drawing on a cylindrical surface. MATLAB processes the image into motion trajectories; Arduino firmware coordinates stepper and servo motors for cylinder rotation, pen translation, and pen contact — full electronics design included.
-          </p>
-          <div class="project-pills">
-            <span class="pill">Embedded C</span>
-            <span class="pill">Arduino</span>
-            <span class="pill">MATLAB</span>
-            <span class="pill">Motor Control</span>
-            <span class="pill">Mechatronics</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/2D-Image-Printer-Robot" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card cat-robotics">
-        <div class="project-thumb">
-          <img src="./assets/images/IR_Mars.png" alt="Mars Rover Navigation">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Autonomous Robotics</span>
-          </div>
-          <h2 class="project-h">Mars Rover Navigation — Behaviour-Based vs Evolutionary</h2>
-          <p class="project-desc">
-            Comparative study of Behaviour-Based Robotics (BBR) and Evolutionary Robotics (ER) for autonomous Mars rover navigation in Webots simulation. Implemented line following, obstacle avoidance, and beacon-driven route selection. Evaluated across speed, robustness, and adaptability.
-          </p>
-          <div class="project-pills">
-            <span class="pill">Robotics</span>
-            <span class="pill">Webots</span>
-            <span class="pill">Autonomous Navigation</span>
-            <span class="pill">Sensor Fusion</span>
-            <span class="pill">Simulation</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/mars-rover-navigation-bbr-er" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- ML/AI CATEGORY -->
-    <div class="cat-label ml" data-cat="ml">AI & Computer Vision</div>
-    <div class="project-grid" data-cat="ml">
-
-      <article class="project-card cat-ml">
-        <div class="project-thumb">
-          <img src="./assets/images/webapp_result.png" alt="Malaria Cell Classification">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Machine Learning</span>
-          </div>
-          <h2 class="project-h">Malaria Cell Image Classification (CNN)</h2>
-          <p class="project-desc">
-            End-to-end deep learning pipeline classifying blood smear images as infected or uninfected using a TensorFlow CNN. Includes data preprocessing, augmentation, regularisation, and a Streamlit web app for upload-and-predict inference with confidence visualisation.
-          </p>
-          <div class="project-pills">
-            <span class="pill">Python</span>
-            <span class="pill">TensorFlow</span>
-            <span class="pill">Computer Vision</span>
-            <span class="pill">Streamlit</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/malaria-cell-image-classification" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card cat-ml">
-        <div class="project-thumb">
-          <img src="./assets/images/final_output.png" alt="License Plate Recognition">
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <span class="project-cat">Computer Vision</span>
-          </div>
-          <h2 class="project-h">Automatic License Plate Recognition (OpenCV + OCR)</h2>
-          <p class="project-desc">
-            Classical computer vision pipeline detecting vehicle license plates from images and extracting alphanumeric text. Uses grayscale conversion, edge detection, contour-based plate localisation, and EasyOCR for text extraction — no deep learning, demonstrating signal processing fundamentals.
-          </p>
-          <div class="project-pills">
-            <span class="pill">Python</span>
-            <span class="pill">OpenCV</span>
-            <span class="pill">OCR</span>
-            <span class="pill">Image Processing</span>
-          </div>
-          <div class="project-links">
-            <a class="btn-sm primary" href="https://github.com/pranjalsamant1/license-plate-recognition-opencv-ocr" target="_blank">View Repository →</a>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="note">More projects in progress — including dual-ECU robot car with FreeRTOS PID control. Watch this space.</div>
-
+    <ul class="project-list">
+      <li class="project-item">
+        <span class="project-name">ESP32 Cyclic Executive Real-Time System</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/esp32-cyclic-executive-monitor" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">Smart Waiting Rooms — IoT Occupancy Monitoring</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/smart-waiting-rooms-iot" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">Robotic Arm Application — AR + Voice Control</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/Robotic_Arm_Application" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">2D Image Printer Robot</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/2D-Image-Printer-Robot" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">Mars Rover Navigation — Behaviour-Based vs Evolutionary</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/mars-rover-navigation-bbr-er" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">Malaria Cell Image Classification (CNN)</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/malaria-cell-image-classification" target="_blank">View more</a>
+      </li>
+      <li class="project-item">
+        <span class="project-name">Automatic License Plate Recognition (OpenCV + OCR)</span>
+        <a class="btn-view" href="https://github.com/pranjalsamant1/license-plate-recognition-opencv-ocr" target="_blank">View more</a>
+      </li>
+    </ul>
   </div>
-
-  <footer>
-    © <span id="y"></span> Pranjal Samant · Embedded Firmware Engineer · Edinburgh, UK
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    function filterProjects(cat, btn) {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      const catLabels = document.querySelectorAll('.cat-label');
-      const catGrids = document.querySelectorAll('.project-grid');
-
-      catLabels.forEach(el => {
-        const elCat = el.dataset.cat;
-        el.style.display = (cat === 'all' || cat === elCat || (cat === 'embedded' && elCat === 'iot')) ? '' : 'none';
-      });
-
-      catGrids.forEach(el => {
-        const elCat = el.dataset.cat;
-        el.style.display = (cat === 'all' || cat === elCat || (cat === 'embedded' && elCat === 'iot')) ? '' : 'none';
-      });
-    }
-  </script>
 </body>
 </html>
