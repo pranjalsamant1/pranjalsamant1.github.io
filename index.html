@@ -12,57 +12,34 @@
       font-family: Helvetica, Arial, sans-serif;
       background: #ffffff;
       color: #000000;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 24px 80px;
+      min-height: 100vh;
     }
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 78vh;
-      min-height: 360px;
-      overflow: hidden;
-    }
-
-    .hero-img {
-      width: 100%;
-      height: 100%;
+    /* ── PHOTO ── */
+    .photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
       object-fit: cover;
-      object-position: center 18%;
+      /* sky at top, face centre, chest at bottom of the circle */
+      object-position: center 22%;
       display: block;
-      animation: heroIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+      margin-bottom: 32px;
+      flex-shrink: 0;
+      animation: popIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    /* multi-directional blend into white background */
-    .hero-fade {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom,
-          transparent 0%,
-          transparent 32%,
-          rgba(255,255,255,0.28) 50%,
-          rgba(255,255,255,0.78) 72%,
-          #ffffff 92%
-        ),
-        linear-gradient(to right,
-          rgba(255,255,255,0.5) 0%,
-          transparent 20%,
-          transparent 80%,
-          rgba(255,255,255,0.5) 100%
-        );
-    }
-
-    /* ── CONTENT ── */
-    .content {
-      padding: 8px 24px 80px;
-      text-align: center;
-    }
-
+    /* ── INTRO ── */
     .intro {
-      font-size: 22px;
+      font-size: 21px;
       line-height: 1.65;
-      margin-bottom: 44px;
+      text-align: center;
+      max-width: 480px;
+      margin-bottom: 48px;
       font-weight: 400;
       animation: popIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
     }
@@ -72,8 +49,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 580px;
       animation: popIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both;
     }
 
@@ -116,7 +93,7 @@
       position: relative;
     }
 
-    /* crop 16:9 video into a 1:1 square */
+    /* crop 16:9 video into 1:1 square */
     .preview-video-box iframe {
       position: absolute;
       top: 50%;
@@ -142,60 +119,52 @@
       display: block;
     }
 
-    @keyframes heroIn {
-      from { opacity: 0; transform: scale(1.05); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
     @keyframes popIn {
-      from { opacity: 0; transform: scale(0.87); }
+      from { opacity: 0; transform: scale(0.85); }
       to   { opacity: 1; transform: scale(1); }
     }
 
     @media (max-width: 600px) {
-      .hero { height: 60vh; min-height: 280px; }
-      .intro { font-size: 18px; margin-bottom: 32px; }
+      .photo { width: 180px; height: 180px; }
+      .intro { font-size: 17px; }
     }
 
     @media (max-width: 480px) {
-      .preview-grid { grid-template-columns: 1fr; max-width: 380px; }
+      .preview-grid { grid-template-columns: 1fr; max-width: 340px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="hero">
-    <img class="hero-img" src="assets/images/portfolio_picture.jpeg" alt="Pranjal Samant" />
-    <div class="hero-fade"></div>
-  </div>
+  <img class="photo"
+       src="assets/images/portfolio_picture1.jpg"
+       alt="Pranjal Samant" />
 
-  <div class="content">
-    <p class="intro">
-      Hi I'm <strong>Pranjal</strong>. I am a passionate Embedded and Robotics Engineer.<br>
-      See my Work below&nbsp;:)
-    </p>
+  <p class="intro">
+    Hi I'm <strong>Pranjal</strong>. I am a passionate Embedded and Robotics Engineer.<br>
+    See my Work below&nbsp;:)
+  </p>
 
-    <div class="preview-grid">
+  <div class="preview-grid">
 
-      <a class="preview-card" href="projects.html">
-        <div class="preview-img-box">
-          <img src="assets/images/live_test.jpeg" alt="Projects" />
-        </div>
-        <span class="btn">Projects</span>
-      </a>
+    <a class="preview-card" href="projects.html">
+      <div class="preview-img-box">
+        <img src="assets/images/live_test.jpeg" alt="Projects" />
+      </div>
+      <span class="btn">Projects</span>
+    </a>
 
-      <a class="preview-card" href="publications.html">
-        <div class="preview-video-box">
-          <iframe
-            src="https://www.youtube.com/embed/MXxTeyBVJWg?autoplay=1&mute=1&loop=1&playlist=MXxTeyBVJWg&controls=0"
-            allow="autoplay; encrypted-media"
-            title="Publications preview">
-          </iframe>
-        </div>
-        <span class="btn">Publications</span>
-      </a>
+    <a class="preview-card" href="publications.html">
+      <div class="preview-video-box">
+        <iframe
+          src="https://www.youtube.com/embed/MXxTeyBVJWg?autoplay=1&mute=1&loop=1&playlist=MXxTeyBVJWg&controls=0"
+          allow="autoplay; encrypted-media"
+          title="Publications preview">
+        </iframe>
+      </div>
+      <span class="btn">Publications</span>
+    </a>
 
-    </div>
   </div>
 
 </body>
